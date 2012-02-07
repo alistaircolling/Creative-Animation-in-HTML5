@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<meta charset="utf-8">
+
+	<head>
+		<title>Draw a Circle</title>
+
+		<style type="text/css">
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+		</style>
+	</head>
+	<body>
+		
+		<script>
+	
+
+		// canvas element and 2D context
+		var	canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext( '2d' );
+		var canvasWidth = window.innerWidth;		
+			canvasHeight = window.innerHeight;
+			//initialize the array
+		var particles = [];
+
+
+			init();
+		
+			function init() {
+
+				// CANVAS SET UP
+			
+				document.body.appendChild(canvas); 
+				canvas.width = canvasWidth;
+				canvas.height = canvasHeight;
+				setInterval(loop, 1000/30);
+
+				
+			}
+			
+			function loop(){
+				
+				
+				// clear the canvas
+				context.fillStyle = "rgba(0,0,0,0.1)";
+				context.fillRect(0,0, canvasWidth, canvasHeight);
+				
+				var particle = new Particle(Math.random()*canvasWidth, Math.random()*canvasHeight);
+				particles.push(particle);				
+				
+				//update all particles
+				for (i=0; i<particles.length; i++) {
+					var particle = particles[i]; 
+					
+					// render it
+					particle.render(context); 
+																
+				}
+				
+			}
+			
+			
+				
+			function Particle (xPos, yPos) {
+				
+				this.xPos = xPos;
+				this.yPos = yPos;
+								
+				
+				this.render = function(c){
+					// set the color of the fill
+					c.fillStyle = "rgba(255, 255, 255, .1)";
+					// draw a circle of the required size
+					c.beginPath();
+					c.arc(this.xPos, this.yPos, 20, 0, Math.PI*2, true);
+					// and fill it
+					c.fill();					
+				}
+						
+			}
+			
+			
+						
+			
+			
+		</script>
+	</body>
+</html>

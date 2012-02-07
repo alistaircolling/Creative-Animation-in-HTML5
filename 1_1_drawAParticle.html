@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<meta charset="utf-8">
+
+	<head>
+		<title>Draw a Circle</title>
+
+		<style type="text/css">
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+		</style>
+	</head>
+	<body>
+		
+		<script>
+	
+
+		// canvas element and 2D context
+		var	canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext( '2d' );
+		var canvasWidth = window.innerWidth;		
+			canvasHeight = window.innerHeight;
+
+
+			init();
+		
+			function init() {
+
+				// CANVAS SET UP
+			
+				document.body.appendChild(canvas); 
+				canvas.width = canvasWidth;
+				canvas.height = canvasHeight;
+				drawParticle(canvasWidth*.5, canvasHeight*.5);
+				
+			}
+			
+			function update(){
+				
+				
+			}
+			
+				
+			function drawParticle (xPos, yPos) {
+				
+				// set the color of the fill
+				context.fillStyle = "rgba(255, 255, 255, 1)";
+				// draw a circle of the required size
+				context.beginPath();
+				context.arc(xPos, yPos, 20, 0, Math.PI*2, true);
+				// and fill it
+				context.fill();
+			}
+						
+			
+			
+		</script>
+	</body>
+</html>

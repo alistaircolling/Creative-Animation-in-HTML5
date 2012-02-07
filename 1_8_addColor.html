@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<meta charset="utf-8">
+
+	<head>
+		<title>Draw a Circle</title>
+
+		<style type="text/css">
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+		</style>
+	</head>
+	<body>
+		
+		<script>
+	
+
+		// canvas element and 2D context
+		var	canvas = document.createElement( 'canvas' ),
+			context = canvas.getContext( '2d' );
+		var canvasWidth = window.innerWidth;		
+			canvasHeight = window.innerHeight;
+			//initialize the array
+		var particles = [];
+
+
+			init();
+		
+			function init() {
+
+				// CANVAS SET UP
+			
+				document.body.appendChild(canvas); 
+				canvas.width = canvasWidth;
+				canvas.height = canvasHeight;
+				setInterval(loop, 1000/30);
+
+				
+			}
+			
+			function loop(){
+				
+				
+				// clear the canvas
+				context.fillStyle = "rgba(0,0,0,1)";
+				context.fillRect(0,0, canvasWidth, canvasHeight);
+				
+				var particle = new Particle(canvasWidth*.5, canvasHeight*.5);
+				particle.xVel = Math.random()*4-2;
+				particles.push(particle);				
+				
+				//update all particles
+				for (i=0; i<particles.length; i++) {
+					var particle = particles[i]; 
+					
+					// render it
+					particle.render(context); 
+					//update afterwards so it displays in the correct place
+					particle.update();
+																
+				}
+				
+				//clean up
+				if (particles.length>1000){
+					particles.shift();
+				}
+				
+			}
+			
+			
+				
+			function Particle (xPos, yPos) {
+				
+				this.xPos = xPos;
+				this.yPos = yPos;
+								
+				this.yVel = -5;
+				this.xVel = 0;
+				
+				//add trails!
+				this.gravity = 0.1;
+				this.counter = 0;
+				
+				this.render = function(c){
+					// set the color of the fill
+					c.fillStyle = "hsl("+this.counter+", 100%, 50%)";
+					// draw a circle of the required size
+					c.beginPath();
+					c.arc(this.xPos, this.yPos, 5, 0, Math.PI*2, true);
+					// and fill it
+					c.fill();					
+				}
+				
+				this.update = function(){
+					
+					this.yVel += this.gravity;
+					
+					this.yPos += this.yVel;
+					this.xPos += this.xVel;
+					
+					this.counter +=2;
+				
+				}
+				
+			}
+			
+			
+						
+			
+			
+		</script>
+	</body>
+</html>
